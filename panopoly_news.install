@@ -13,7 +13,30 @@
 * 
 */
 function panopoly_news_install() {
+  //Set default user pic
   if (!variable_get('user_picture_default')) {
     variable_set('user_picture_default', drupal_get_path('module', 'panopoly_news') . '/images/panopoly-news-user-pic-default.png');
   }
+
+  //Set default article pic
+
+  //Get the article field
+  $prior_field = field_info_field('field_panopoly_news_image')
+
+  //Only set the default image if none has been set already
+  if(empty($prior_field['settings']['default_image']['fid'])){
+	  $filepath = drupal_get_path('module', 'panopoly_news') . '/images/panopoly-news-article-pic-default.png'; 
+	  //Create managed File object and associate with Image field.
+	  $file = (object) array(
+	    'uid' => 1,
+	    'uri' => $filepath,
+	    'filemime' => file_get_mimetype($filepath),
+	    'status' => 1,
+	  );
+
+  	$field = $prior_field;
+  	$field['settings']['default_image'] = $file;
+		image_field_update_field($field, $prior_field, FALSE);
+  }
 }
+
