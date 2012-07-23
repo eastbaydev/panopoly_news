@@ -30,7 +30,6 @@ features[variable][] = node_preview_panopoly_news_article
 features[variable][] = node_submitted_panopoly_news_article
 features[variable][] = pathauto_node_panopoly_news_article_pattern
 features[variable][] = pathauto_taxonomy_term_panopoly_news_topics_pattern
-features[variable][] = user_picture_default
 features[variable][] = user_picture_dimensions
 features[variable][] = user_picture_file_size
 features[variable][] = user_picture_guidelines
