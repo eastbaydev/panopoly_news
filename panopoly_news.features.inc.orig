@@ -15,13 +15,12 @@ function panopoly_news_ctools_plugin_api() {
 }
 
 /**
+<<<<<<< HEAD
  * Implements hook_views_api().
  */
 function panopoly_news_views_api() {
   return array("version" => "3.0");
-}
-
-/**
+=======
  * Implements hook_image_default_styles().
  */
 function panopoly_news_image_default_styles() {
@@ -50,6 +49,7 @@ function panopoly_news_image_default_styles() {
   );
 
   return $styles;
+>>>>>>> 605dc115bd607e6ba55fa25192da06b58dd2fb58
 }
 
 /**

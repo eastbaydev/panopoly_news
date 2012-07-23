@@ -1,0 +1,19 @@
+<?php
+/**
+* @file
+* Code for the Panopoly News installer.
+*/
+
+
+/**
+* Implementation of hook_install()
+* 
+* Need to set default user pic here instead of with strongarm
+* @todo: figure out a way to revert back to this if overridden 
+* 
+*/
+function panopoly_news_install() {
+  if (!variable_get('user_picture_default')) {
+    variable_set('user_picture_default', drupal_get_path('module', 'panopoly_news') . '/images/panopoly-news-user-pic-default.jpg');
+  }
+}
