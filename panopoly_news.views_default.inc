@@ -13,7 +13,7 @@ function panopoly_news_views_default_views() {
   $view = new view;
   $view->name = 'panopoly_news_article_archive';
   $view->description = 'Display a list of months that link to content for that month.';
-  $view->tag = 'default';
+  $view->tag = 'panopoly_news';
   $view->base_table = 'node';
   $view->human_name = 'Article Archive';
   $view->core = 0;
@@ -388,7 +388,7 @@ function panopoly_news_views_default_views() {
   $view = new view;
   $view->name = 'panopoly_news_article_by_topic';
   $view->description = 'Display a list of months that link to content for that month.';
-  $view->tag = 'default';
+  $view->tag = 'panopoly_news';
   $view->base_table = 'node';
   $view->human_name = 'Articles by Topic';
   $view->core = 0;
@@ -899,7 +899,7 @@ function panopoly_news_views_default_views() {
   $view = new view;
   $view->name = 'panopoly_news_featured_articles';
   $view->description = 'List of the most recent featured articles.';
-  $view->tag = 'default';
+  $view->tag = 'panopoly_news';
   $view->base_table = 'node';
   $view->human_name = 'Featured Articles';
   $view->core = 7;
