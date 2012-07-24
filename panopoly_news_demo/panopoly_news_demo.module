@@ -1,0 +1,38 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+function panopoly_news_demo_menu(){
+  $items['node/add'] = array(
+    'title' => 'Add content',
+    'page callback' => 'node_add_page',
+    'access callback' => '_node_add_access',
+    'file' => 'node.pages.inc',
+  );
+  return $items;
+}
+
+/**
+ * Delete all (node) defaultcontent in $feature_name.
+ * 
+ * @return [type] [description]
+ */
+function panopoly_news_demo_delete_defaultcontent($feature_name){
+	if(module_load_include('inc', $feature_name, $feature_name . '.features.content')){
+		//Load all the featurized pieces of defaultcontent
+		$content_defaults_function = $feature_name . '_content_defaults';
+	  $components = $content_defaults_function();
+	  usort($components, 'defaultcontent_import_sort');
+
+	  //Delete all the defaultcontent
+	  if (!empty($components)) {
+	    foreach ($components as $component) {
+	      if ($nid = defaultcontent_get_default($component->machine_name)) {
+	        $node = node_delete($nid);
+	      }
+	    }
+	  }
+	}
+}

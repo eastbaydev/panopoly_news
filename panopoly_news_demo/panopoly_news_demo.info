@@ -1,0 +1,13 @@
+name = Panopoly News Demo
+description = Demo content for Panopoly News
+core = 7.x
+package = Features
+version = 7.x-1.0-dev
+project = panopoly_news_demo
+features[content][] = panopoly-news-demo-0
+features[content][] = panopoly-news-demo-1
+features[content][] = panopoly-news-demo-2
+features[content][] = panopoly-news-demo-3
+features[content][] = panopoly-news-demo-4
+features[content][] = panopoly-news-demo-5
+features[features_api][] = api:1

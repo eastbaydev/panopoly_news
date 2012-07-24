@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * panopoly_news.features.content.inc
+ * panopoly_news_demo.features.content.inc
  */
 
 /**
  * Implements hook_content_defaults().
  */
-function panopoly_news_content_defaults() {
+function panopoly_news_demo_content_defaults() {
   $content = array();
 
   $content['panopoly-news-demo-0'] = (object) array(
@@ -75,7 +75,7 @@ function panopoly_news_content_defaults() {
           'filesize' => '77480',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '97b67029-95fe-0c24-8156-58c479d83672',
+          'uuid' => 'be6efdfb-a8b9-9724-f93a-1231f5e07bae',
           'image_dimensions' => array(
             'width' => '650',
             'height' => '449',
@@ -167,7 +167,7 @@ function panopoly_news_content_defaults() {
           'filesize' => '49912',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '9d43f6a6-c9f7-1144-8de7-49d21df3367f',
+          'uuid' => '85410547-5f47-6e64-a5fa-0edb40796aaf',
           'image_dimensions' => array(
             'width' => '484',
             'height' => '500',
@@ -262,7 +262,7 @@ function panopoly_news_content_defaults() {
           'filesize' => '85445',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '0b3fafe8-86b4-72e4-3559-4a01be01e230',
+          'uuid' => '311d8fa9-f8c7-b6c4-313b-6954dac25931',
           'image_dimensions' => array(
             'width' => '656',
             'height' => '500',
@@ -336,7 +336,7 @@ function panopoly_news_content_defaults() {
           'filesize' => '36484',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '253ba3ae-7ac2-4d44-45b8-893ab949d1cb',
+          'uuid' => 'a46be6b3-a7f1-9514-1562-59c812e42941',
           'image_dimensions' => array(
             'width' => '432',
             'height' => '505',
@@ -415,7 +415,7 @@ function panopoly_news_content_defaults() {
           'filesize' => '34821',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '43ce8870-385b-f014-553d-420c1ad2dde6',
+          'uuid' => 'b46552db-e3df-8394-1554-21c4c369fd2f',
           'image_dimensions' => array(
             'width' => '514',
             'height' => '610',
@@ -493,7 +493,7 @@ function panopoly_news_content_defaults() {
           'filesize' => '45107',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '57738951-dd39-ef44-8948-2d7cbfdce7b3',
+          'uuid' => '9ff03d10-6e2e-03e4-9d87-413154774f43',
           'image_dimensions' => array(
             'width' => '630',
             'height' => '446',
