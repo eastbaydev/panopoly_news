@@ -4,18 +4,47 @@
  * Drupal needs this blank file.
  */
 
+/**
+ * 
+ * @return [type] [description]
+ */
 function panopoly_news_demo_menu(){
-  $items['node/add'] = array(
-    'title' => 'Add content',
-    'page callback' => 'node_add_page',
-    'access callback' => '_node_add_access',
-    'file' => 'node.pages.inc',
+  $items['admin/content/remove-demo-content/panopoly-news'] = array(
+    'title' => 'Remove Panopoly News demo content',
+    'page callback' => 'panopoly_news_demo_disable_demo',
+    'page arguments' => array('admin/content'),
+    'access arguments' => array('administer features'),
+    'type' => MENU_LOCAL_ACTION,
   );
+  $items['news/remove-demo-content/panopoly-news'] = array(
+    'title' => 'Remove Panopoly News demo content',
+    'page callback' => 'panopoly_news_demo_disable_demo',
+    'page arguments' => array('news'),
+    'access arguments' => array('administer features'),
+    'type' => MENU_LOCAL_ACTION,
+  );
+
   return $items;
+}
+
+function panopoly_news_demo_disable_demo($redirect_path){
+	//Disable the module (and thus the content)
+	module_disable(array('panopoly_news_demo'));
+
+	//Clear the menu cache
+	menu_rebuild();
+
+	//Set an informative message
+	drupal_set_message(t('The Panopoly News demo content has been disabled.'));
+
+	//Reload the admin content page
+	drupal_goto($redirect_path);
 }
 
 /**
  * Delete all (node) defaultcontent in $feature_name.
+ *
+ * @todo: THIS FUNCTION IS UNUSED. Delete before going live.
  * 
  * @return [type] [description]
  */
