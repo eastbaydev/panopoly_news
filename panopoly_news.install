@@ -38,5 +38,9 @@ function panopoly_news_install() {
   	$field['settings']['default_image'] = $file;
 		image_field_update_field($field, $prior_field, FALSE);
   }
+
+  //Enable demo content
+  //@todo: make this part of install process?
+  module_enable('panopoly_news_demo');
 }
 
