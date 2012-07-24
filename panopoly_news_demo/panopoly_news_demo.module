@@ -42,6 +42,51 @@ function panopoly_news_demo_disable_demo($redirect_path){
 }
 
 /**
+ * This function turns an entity into code that can be used in a
+ * hook_defaultcontents
+ */
+function panopoly_news_demo_export_demo_content() {
+	$users_export = array();
+	$terms_export = array();
+
+	//Find all the users with an exportable uuid
+	$user_query = new EntityFieldQuery();
+	$user_result = $user_query->entityCondition('entity_type', 'user')
+	->fieldCondition('field_panopoly_news_demo_uuid', 'value', NULL, 'IS NOT NULL')
+	->execute();
+
+	//Find all the taxonomy_terms with an exportable uuid
+	$term_query = new EntityFieldQuery();
+	$term_result = $term_query->entityCondition('entity_type', 'taxonomy_term')
+	->fieldCondition('field_panopoly_news_demo_uuid', 'value', NULL, 'IS NOT NULL')
+	->execute();
+
+
+	//Save all the users as serialized strings within a file
+	$user_entities = entity_load('user', array_keys($user_result['user']));
+	print_r($user_entities);
+	foreach($user_entities as $user_entity){
+	 	$exported_user = entity_export('user', $user_entity);
+	 	print_r(get_class_methods($user_entity));
+		//Save its exported format in the array
+		$users_export[] = $exported_user;
+	}
+
+	$term_entities = entity_load('taxonomy_term', array_keys($term_result['taxonomy_term']));
+	foreach($term_entities as $term_entity){
+	 	$exported_term = entity_export('taxonomy_term', $term_entity);
+
+		//Save its exported format in the array
+		$terms_export[] = $exported_term;
+	}
+
+	$export = array_merge($users_export, $terms_export);
+
+	print_r($export);
+}
+
+
+/**
  * Delete all (node) defaultcontent in $feature_name.
  *
  * @todo: THIS FUNCTION IS UNUSED. Delete before going live.
