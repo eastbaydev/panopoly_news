@@ -5,3 +5,26 @@
  */
 
 include_once 'panopoly_news.features.inc';
+
+/**
+ * Delete all (node) defaultcontent in $feature_name.
+ * 
+ * @return [type] [description]
+ */
+function panopoly_news_delete_defaultcontent($feature_name){
+	if(module_load_include('inc', $feature_name, $feature_name . '.features.content')){
+		//Load all the featurized pieces of defaultcontent
+		$content_defaults_function = $feature_name . '_content_defaults';
+	  $components = $content_defaults_function();
+	  usort($components, 'defaultcontent_import_sort');
+
+	  //Delete all the defaultcontent
+	  if (!empty($components)) {
+	    foreach ($components as $component) {
+	      if ($nid = defaultcontent_get_default($component->machine_name)) {
+	        $node = node_delete($nid);
+	      }
+	    }
+	  }
+	}
+}
