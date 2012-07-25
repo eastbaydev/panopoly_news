@@ -73,9 +73,11 @@ function panopoly_news_demo_disable_demo($redirect_path) {
  */
 function panopoly_news_demo_modules_enabled($modules) {
 	if (in_array('panopoly_news_demo', $modules)) {
-		//Make sure defaultcontent has been added
-		//@todo: I dislike this hack, check to see if the necessary
-		//field has been enabled
+		//Make sure defaultcontent has been added and the
+		//panopoly_news_demo_content field is present
+		//@todo: I dislike this hack, but until a better solution for
+		//running code after a feature is presented, stuck with it
+		//See http://drupal.org/node/981248
 		features_rebuild();
 		features_revert(array('panopoly_news_demo' => array('field')));
 
