@@ -41,9 +41,78 @@ function panopoly_news_demo_disable_demo($redirect_path){
 	drupal_goto($redirect_path);
 }
 
+
+
 /**
- * This function turns an entity into code that can be used in a
- * hook_defaultcontents
+ * Given an array of tids, return an array of random length
+ * containing some of them.
+ * 
+ * @param  [type] $term_ids [description]
+ * @return [type]           [description]
+ */
+function panopoly_news_demo_get_random_terms($term_ids){
+	$size = count($term_ids);
+	$number_returned_tids = rand(1, $size);
+	$random_tids = array_rand($term_ids, $number_returned_tids);
+	return $random_tids;
+}
+
+/**
+ * Get all (node) defaultcontent in $feature_name.
+ *
+ * @return [type] [description]
+ */
+function panopoly_news_demo_get_defaultcontent($feature_name){
+	if(module_load_include('inc', $feature_name, $feature_name . '.features.content')){
+		$defaultcontent_nodes = array();
+		//Load all the featurized pieces of defaultcontent
+		$content_defaults_function = $feature_name . '_content_defaults';
+	  $components = $content_defaults_function();
+	  usort($components, 'defaultcontent_import_sort');
+
+	  //Delete all the defaultcontent
+	  if (!empty($components)) {
+	    foreach ($components as $component) {
+	      if ($nid = defaultcontent_get_default($component->machine_name)) {
+	        $node = node_load($nid);
+	        $defaultcontent_nodes[] = $node;
+	      }
+	    }
+	  }
+	  return $defaultcontent_nodes;
+	}
+}
+
+/**
+ * Get all demo content of $entity_type
+ * 
+ * @return [type] [description]
+ */
+function panopoly_news_demo_get_demo_content($entity_type){
+	$query = new EntityFieldQuery();
+	$result = $user_query->entityCondition('entity_type', $entity_type)
+	->fieldCondition('field_panopoly_news_demo_uuid', 'value', NULL, 'IS NOT NULL')
+	->execute();
+
+	return $result;
+}
+
+/**
+ * Delete all demo content of $entity_type
+ * 
+ * @param  [type] $entity_type [description]
+ * @return [type]              [description]
+ */
+function panopoly_news_demo_delete_demo_content($entity_type){
+	$eid_results = panopoly_news_demo_get_demo_content($entity_type);
+	$eids = array_keys($eid_results[$entity_type]);
+	foreach($eids as $eid){
+		entity_delete($entity_type, $eid);	
+	}
+}
+
+/**
+ * @todo: REMOVE
  */
 function panopoly_news_demo_export_demo_content() {
 	$users_export = array();
@@ -83,30 +152,4 @@ function panopoly_news_demo_export_demo_content() {
 	$export = array_merge($users_export, $terms_export);
 
 	print_r($export);
-}
-
-
-/**
- * Delete all (node) defaultcontent in $feature_name.
- *
- * @todo: THIS FUNCTION IS UNUSED. Delete before going live.
- * 
- * @return [type] [description]
- */
-function panopoly_news_demo_delete_defaultcontent($feature_name){
-	if(module_load_include('inc', $feature_name, $feature_name . '.features.content')){
-		//Load all the featurized pieces of defaultcontent
-		$content_defaults_function = $feature_name . '_content_defaults';
-	  $components = $content_defaults_function();
-	  usort($components, 'defaultcontent_import_sort');
-
-	  //Delete all the defaultcontent
-	  if (!empty($components)) {
-	    foreach ($components as $component) {
-	      if ($nid = defaultcontent_get_default($component->machine_name)) {
-	        $node = node_delete($nid);
-	      }
-	    }
-	  }
-	}
 }
