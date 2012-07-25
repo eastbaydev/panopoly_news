@@ -64,7 +64,6 @@ function panopoly_news_demo_modules_installed($modules){
       taxonomy_term_save($term);
       $term_ids[] = $term->tid;
     }
-   	dpm($defaultcontent_nodes); 
     foreach($defaultcontent_nodes as $node){
       //Generate author user
       devel_create_users(1, FALSE, 31556926, array($author_role->rid));
@@ -79,9 +78,8 @@ function panopoly_news_demo_modules_installed($modules){
       //Assign random terms to the nodes
       $random_terms = panopoly_news_demo_get_random_terms($term_ids);
       foreach($random_terms as $tid){
-        $node->field_panopoly_news_tags['und'][] = array('tid' => $term); 
+        $node->field_panopoly_news_tags['und'][] = array('tid' => $tid);
       }
-      dsm($node);
       node_save($node); 
     }
   } 		
