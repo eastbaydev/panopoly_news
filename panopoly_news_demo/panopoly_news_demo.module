@@ -130,6 +130,22 @@ function panopoly_news_demo_modules_enabled($modules) {
 }
 
 /**
+ * Make sure that field_panopoly_news_demo_content doesn't show up on any
+ * forms.
+ *
+ * Implements hook_form_alter().
+ * 
+ * @param  array  &$form 
+ * @param  array  &$form_state
+ * @param  string $form_id 
+ */
+function panopoly_news_demo_form_alter(&$form, &$form_state, $form_id){
+	if(isset($form['field_panopoly_news_demo_content'])){
+		$form['field_panopoly_news_demo_content']['#access'] = FALSE;
+	}
+}
+
+/**
  * Given an array of tids, return an array of random length
  * containing some of them.
  * 
