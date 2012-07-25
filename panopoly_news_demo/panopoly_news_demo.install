@@ -1,55 +1,9 @@
 <?php
 
-/**
- * Adds demo users and taxonomy terms to accompany
- * the nodes provided by the defaultcontent module.
- *
- * Implements hook_install()
- * 
- * @return [type] [description]
- *
-function panopoly_news_demo_install(){
+function panopoly_news_demo_enable(){
 
-  if($author_role = user_role_load_by_name('panopoly news author')){
-    module_load_include('inc', 'devel_generate');
-
-    $defaultcontent_nodes = panopoly_news_demo_get_defaultcontent('panopoly_news_demo');
-
-    //Get vocabulary object
-    $vocabularies = taxonomy_vocabulary_get_names();
-    $vid = $vocabularies['panopoly_news_topics']->vid;
-    $vocab = taxonomy_vocabulary_load($vid); 
-
-    //Generate some terms
-    $terms = devel_generate_terms(10, array($vid => $vocab), 10);
-    $term_ids = array();
-    foreach($terms as $term_name){
-      $term_matches = taxonomy_get_term_by_name($term_name, $vocab->machine_name);
-      $term = array_pop($term_matches);
-      $term->field_panopoly_news_demo_content['und'][0] = TRUE;
-      taxonomy_term_save($term);
-      $term_ids[] = $term->tid;
-    }
-    
-    foreach($defaultcontent_nodes as $node){
-      //Generate author user
-      devel_create_users(10, FALSE, 31556926, $author_role->rid);
-
-      //Grab this user and assign them to the node
-      $newest_user_uid = panopoly_news_demo_get_latest_uid();
-      $user = user_load($newest_user_uid);
-      $user->field_panopoly_news_demo_content['und'][0] = TRUE;
-      $node->uid = $newest_user_uid;
-      user_save($user);
-
-      $random_terms = panopoly_news_demo_get_random_terms($term_ids);
-      foreach($random_terms as $term){
-        $node->field_panopoly_news_tags['und'][]['tid'] = $term; 
-        node_save($node); 
-      }
-    }
-  } 
 }
+
 
 /**
  * Deletes the custom demo content we've created, 
@@ -62,4 +16,12 @@ function panopoly_news_demo_disable(){
   //Remove any users or terms with the field_panopoly_news_demo_content
   panopoly_news_demo_delete_demo_content('user');
   panopoly_news_demo_delete_demo_content('taxonomy_term');
+
+  //remove field_panopoly_news_demo_content from the Drupal install
+  field_delete_field('field_panopoly_news_demo_content');
+  field_purge_batch(6);
+  
+  //Make sure the feature is uninstalled, so it will create the
+  //fields upon re-install
+  drupal_uninstall_modules(array('panopoly_news_demo'), FALSE);
 }

@@ -1,33 +1,55 @@
 <?php
+
 /**
- * @file
- * Drupal needs this blank file.
+ *
+ * This code is largely a work-around to provide users and
+ * terms for defaultcontent-generated nodes.
+ *
+ * @TODO: In the future, I would prefer to extend defaultcontent or
+ * use a different content-deployment strategy to fulfill this functionality.
  */
 
 /**
- * 
- * @return [type] [description]
+ * Insert some well-placed links so users may remove the demo content,
+ * aka, disable the module.
+ *
+ * Implements hook_menu()
+ *
+ * @return array
  */
-function panopoly_news_demo_menu(){
-  $items['admin/content/remove-demo-content/panopoly-news'] = array(
-    'title' => 'Remove Panopoly News demo content',
-    'page callback' => 'panopoly_news_demo_disable_demo',
-    'page arguments' => array('admin/content'),
-    'access arguments' => array('administer features'),
-    'type' => MENU_LOCAL_ACTION,
-  );
-  $items['news/remove-demo-content/panopoly-news'] = array(
-    'title' => 'Remove Panopoly News demo content',
-    'page callback' => 'panopoly_news_demo_disable_demo',
-    'page arguments' => array('news'),
-    'access arguments' => array('administer features'),
-    'type' => MENU_LOCAL_ACTION,
-  );
+function panopoly_news_demo_menu() {
+	$items['admin/content/remove-demo-content/panopoly-news'] = array(
+	    'title' => 'Remove Panopoly News demo content',
+	    'page callback' => 'panopoly_news_demo_disable_demo',
+	    'page arguments' => array('admin/content'),
+	    'access arguments' => array('administer features'),
+	    'type' => MENU_LOCAL_ACTION,
+	);
+	$items['news/remove-demo-content/panopoly-news'] = array(
+	    'title' => 'Remove Panopoly News demo content',
+	    'page callback' => 'panopoly_news_demo_disable_demo',
+	    'page arguments' => array('news'),
+	    'access arguments' => array('administer features'),
+	    'type' => MENU_LOCAL_ACTION,
+	);
+	$items['admin/people/remove-demo-content/panopoly-news'] = array(
+	    'title' => 'Remove Panopoly News demo content',
+	    'page callback' => 'panopoly_news_demo_disable_demo',
+	    'page arguments' => array('admin/people'),
+	    'access arguments' => array('administer features'),
+	    'type' => MENU_LOCAL_ACTION,
+	);
 
-  return $items;
+
+	return $items;
 }
 
-function panopoly_news_demo_disable_demo($redirect_path){
+/**
+ * Convenient page callback to disable panopoly_news_demo.
+ *
+ * @param <type> $redirect_path
+ */
+function panopoly_news_demo_disable_demo($redirect_path) {
 	//Disable the module (and thus the content)
 	module_disable(array('panopoly_news_demo'));
 
@@ -41,48 +63,68 @@ function panopoly_news_demo_disable_demo($redirect_path){
 	drupal_goto($redirect_path);
 }
 
-function panopoly_news_demo_modules_installed($modules){
-	if(in_array('panopoly_news_demo', $modules)){
+/**
+ * After the panopoly_news_demo feature has been activated, generate some
+ * dummy content (users and terms) and attach it to the defaultcontent nodes.
+ *
+ * Implements hook_modules_installed()
+ *
+ * @param array $modules
+ */
+function panopoly_news_demo_modules_enabled($modules) {
+	if (in_array('panopoly_news_demo', $modules)) {
+		//Make sure defaultcontent has been added
+		//@todo: I dislike this hack, check to see if the necessary
+		//field has been enabled
 		features_rebuild();
-  	$author_role = user_role_load_by_name('panopoly news author');
-    module_load_include('inc', 'devel_generate');
+		features_revert(array('panopoly_news_demo' => array('field')));
 
-    $defaultcontent_nodes = panopoly_news_demo_get_defaultcontent('panopoly_news_demo');
+		//Load some necessary info	
+		$author_role = user_role_load_by_name('panopoly news author');
+		module_load_include('inc', 'devel_generate');
 
-    //Get vocabulary object
-    $vocabularies = taxonomy_vocabulary_get_names();
-    $vid = $vocabularies['panopoly_news_topics']->vid;
-    $vocab = taxonomy_vocabulary_load($vid); 
+		//Find all the defaultcontent nodes installed
+		$defaultcontent_nodes = panopoly_news_demo_get_defaultcontent('panopoly_news_demo');
 
-    //Generate some terms
-    $terms = devel_generate_terms(10, array($vid => $vocab), 10);
-    $term_ids = array();
-    foreach($terms as $term_name){
-      $term_matches = taxonomy_get_term_by_name($term_name, $vocab->machine_name);
-      $term = array_pop($term_matches);
-      $term->field_panopoly_news_demo_content['und'][0]['value'] = TRUE;
-      taxonomy_term_save($term);
-      $term_ids[] = $term->tid;
-    }
-    foreach($defaultcontent_nodes as $node){
-      //Generate author user
-      devel_create_users(1, FALSE, 31556926, array($author_role->rid));
+		//Get vocabulary object
+		$vocabularies = taxonomy_vocabulary_get_names();
+		$vid = $vocabularies['panopoly_news_topics']->vid;
+		$vocab = taxonomy_vocabulary_load($vid);
 
-      //Grab this user and assign them to the node
-      $newest_user_uid = panopoly_news_demo_get_latest_uid();
-      $account = user_load($newest_user_uid);
-      $account->field_panopoly_news_demo_content['und'][0]['value'] = TRUE;
-      $node->uid = $newest_user_uid;
-      user_save($account);
+		//Generate some terms
+		$terms = devel_generate_terms(10, array($vid => $vocab), 10);
+		$term_ids = array();
+		foreach ($terms as $term_name) {
+			$term_matches = taxonomy_get_term_by_name($term_name, $vocab->machine_name);
+			$term = array_pop($term_matches);
+			$term->field_panopoly_news_demo_content['und'][0]['value'] = TRUE;
+			taxonomy_term_save($term);
+			$term_ids[] = $term->tid;
+		}
 
-      //Assign random terms to the nodes
-      $random_terms = panopoly_news_demo_get_random_terms($term_ids);
-      foreach($random_terms as $tid){
-        $node->field_panopoly_news_tags['und'][] = array('tid' => $tid);
-      }
-      node_save($node); 
-    }
-  } 		
+		//Cycle through all the defaultcontent and attach users/terms
+		foreach ($defaultcontent_nodes as $node) {
+			//Generate author user
+			//@todo: do this in a batch of multiple users?
+			devel_create_users(1, FALSE, 31556926, array($author_role->rid));
+
+			//Grab this user and assign them to the node
+			$newest_user_uid = panopoly_news_demo_get_latest_uid();
+			$account = user_load($newest_user_uid);
+			$node->uid = $newest_user_uid;
+
+			//Make sure the user is tagged as demo_content
+			$account->field_panopoly_news_demo_content['und'][0]['value'] = TRUE;
+			user_save($account);
+
+			//Assign random terms to the nodes
+			$random_terms = panopoly_news_demo_get_random_terms($term_ids);
+			foreach ($random_terms as $tid) {
+				$node->field_panopoly_news_tags['und'][] = array('tid' => $tid);
+			}
+			node_save($node);
+		}
+	}
 }
 
 /**
@@ -92,78 +134,96 @@ function panopoly_news_demo_modules_installed($modules){
  * @param  [type] $term_ids [description]
  * @return [type]           [description]
  */
-function panopoly_news_demo_get_random_terms($term_ids){
+function panopoly_news_demo_get_random_terms($term_ids) {
 	$size = count($term_ids);
 	$number_returned_tids = rand(1, $size);
-	$random_tids = array_random_assoc($term_ids, $number_returned_tids);
+	$random_tids = _array_random_assoc($term_ids, $number_returned_tids);
 	return $random_tids;
 }
 
-function array_random_assoc($arr, $num = 1) {
-    $keys = array_keys($arr);
-    shuffle($keys);
+/**
+ * Return random values from an associative array.
+ *
+ * @param array $arr
+ * @param int $num
+ * @return array
+ */
+function _array_random_assoc($arr, $num = 1) {
+	$keys = array_keys($arr);
+	shuffle($keys);
 
-    $r = array();
-    for ($i = 0; $i < $num; $i++) {
-        $r[$keys[$i]] = $arr[$keys[$i]];
-    }
-    return $r;
+	$r = array();
+	for ($i = 0; $i < $num; $i++) {
+		$r[$keys[$i]] = $arr[$keys[$i]];
+	}
+	return $r;
 }
 
-
 /**
- * Get all (node) defaultcontent in $feature_name.
+ * Get all defaultcontent nodes in $feature_name.
  *
- * @return [type] [description]
+ * @return array An array of nodes.
  */
-function panopoly_news_demo_get_defaultcontent($feature_name){
-	if(module_load_include('inc', $feature_name, $feature_name . '.features.content')){
+function panopoly_news_demo_get_defaultcontent($feature_name) {
+	if (module_load_include('inc', $feature_name, $feature_name . '.features.content')) {
 		$defaultcontent_nodes = array();
+
 		//Load all the featurized pieces of defaultcontent
 		$content_defaults_function = $feature_name . '_content_defaults';
-	  $components = $content_defaults_function();
-	  usort($components, 'defaultcontent_import_sort');
+		$components = $content_defaults_function();
+		usort($components, 'defaultcontent_import_sort');
 
-	  //Load all the defaultcontent
-	  if (!empty($components)) {
-	    foreach ($components as $component) {
-	      if ($nid = defaultcontent_get_default($component->machine_name)) {
-	        $node = node_load($nid);
-	        $defaultcontent_nodes[] = $node;
-	      }else{
-          defaultcontent_import_node($component);
-          $nid = defaultcontent_get_default($component->machine_name);
-	        $node = node_load($nid);
-	        $defaultcontent_nodes[] = $node;
-        }
-	    }
-	  }
-	  return $defaultcontent_nodes;
+		//Load all the defaultcontent
+		if (!empty($components)) {
+			foreach ($components as $component) {
+				if ($nid = defaultcontent_get_default($component->machine_name)) {
+					//If it has already been inserted into the DB, load it from there
+					$node = node_load($nid);
+					$defaultcontent_nodes[] = $node;
+				} else {
+					//Otherwise, import it ourselves
+					defaultcontent_import_node($component);
+					$nid = defaultcontent_get_default($component->machine_name);
+					$node = node_load($nid);
+					$defaultcontent_nodes[] = $node;
+				}
+			}
+		}
+		return $defaultcontent_nodes;
 	}
 }
 
 /**
- * Get all demo content of $entity_type
+ * Get all demo content (stuff tagged as demo content) of $entity_type
  * 
- * @return [type] [description]
+ * @return array An array of entities or FALSE when the field doesn't exist.
  */
-function panopoly_news_demo_get_demo_content($entity_type){
+function panopoly_news_demo_get_demo_content($entity_type) {
+	//Make sure the field_panopoly_news_demo_content field exists
 	$field_info = field_info_field('field_panopoly_news_demo_content');
-	if(!empty($field_info['bundles'])){
+	if (!empty($field_info['bundles'])) {
+		//Query for demo content
 		$query = new EntityFieldQuery();
 		$result = $query->entityCondition('entity_type', $entity_type)
-		->fieldCondition('field_panopoly_news_demo_content', 'value', 1, '=')
-		->execute();
+				->fieldCondition('field_panopoly_news_demo_content', 'value', 1, '=')
+				->execute();
 
 		return $result;
-	}else{
+	} else {
 		return FALSE;
 	}
 }
 
-function panopoly_news_demo_get_latest_uid(){
+/**
+ * Retrieves the last UID in the user table.
+ *
+ * @TODO: This will not work for all site installs.
+ *
+ * @return int The last UID in the user table.
+ */
+function panopoly_news_demo_get_latest_uid() {
 	$result = db_query("select * from {users} order by uid desc limit 1");
-	foreach($result as $row){
+	foreach ($result as $row) {
 		$uid = $row->uid;
 	}
 	return $uid;
@@ -172,57 +232,13 @@ function panopoly_news_demo_get_latest_uid(){
 /**
  * Delete all demo content of $entity_type
  * 
- * @param  [type] $entity_type [description]
- * @return [type]              [description]
+ * @param  string $entity_type Machine name of the entity type.
  */
-function panopoly_news_demo_delete_demo_content($entity_type){
-	if($eid_results = panopoly_news_demo_get_demo_content($entity_type)){
+function panopoly_news_demo_delete_demo_content($entity_type) {
+	if ($eid_results = panopoly_news_demo_get_demo_content($entity_type)) {
 		$eids = array_keys($eid_results[$entity_type]);
-		foreach($eids as $eid){
-			entity_delete($entity_type, $eid);	
+		foreach ($eids as $eid) {
+			entity_delete($entity_type, $eid);
 		}
 	}
-}
-
-/**
- * @todo: REMOVE
- */
-function panopoly_news_demo_export_demo_content() {
-	$users_export = array();
-	$terms_export = array();
-
-	//Find all the users with an exportable uuid
-	$user_query = new EntityFieldQuery();
-	$user_result = $user_query->entityCondition('entity_type', 'user')
-	->fieldCondition('field_panopoly_news_demo_content', 'value', NULL, 'IS NOT NULL')
-	->execute();
-
-	//Find all the taxonomy_terms with an exportable uuid
-	$term_query = new EntityFieldQuery();
-	$term_result = $term_query->entityCondition('entity_type', 'taxonomy_term')
-	->fieldCondition('field_panopoly_news_demo_content', 'value', NULL, 'IS NOT NULL')
-	->execute();
-
-
-	//Save all the users as serialized strings within a file
-	$user_entities = entity_load('user', array_keys($user_result['user']));
-	print_r($user_entities);
-	foreach($user_entities as $user_entity){
-	 	$exported_user = entity_export('user', $user_entity);
-	 	print_r(get_class_methods($user_entity));
-		//Save its exported format in the array
-		$users_export[] = $exported_user;
-	}
-
-	$term_entities = entity_load('taxonomy_term', array_keys($term_result['taxonomy_term']));
-	foreach($term_entities as $term_entity){
-	 	$exported_term = entity_export('taxonomy_term', $term_entity);
-
-		//Save its exported format in the array
-		$terms_export[] = $exported_term;
-	}
-
-	$export = array_merge($users_export, $terms_export);
-
-	print_r($export);
 }
