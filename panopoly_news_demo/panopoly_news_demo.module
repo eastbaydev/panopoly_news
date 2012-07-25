@@ -41,7 +41,51 @@ function panopoly_news_demo_disable_demo($redirect_path){
 	drupal_goto($redirect_path);
 }
 
+function panopoly_news_demo_modules_installed($modules){
+	if(in_array('panopoly_news_demo', $modules)){
+		features_rebuild();
+  	$author_role = user_role_load_by_name('panopoly news author');
+    module_load_include('inc', 'devel_generate');
 
+    $defaultcontent_nodes = panopoly_news_demo_get_defaultcontent('panopoly_news_demo');
+
+    //Get vocabulary object
+    $vocabularies = taxonomy_vocabulary_get_names();
+    $vid = $vocabularies['panopoly_news_topics']->vid;
+    $vocab = taxonomy_vocabulary_load($vid); 
+
+    //Generate some terms
+    $terms = devel_generate_terms(10, array($vid => $vocab), 10);
+    $term_ids = array();
+    foreach($terms as $term_name){
+      $term_matches = taxonomy_get_term_by_name($term_name, $vocab->machine_name);
+      $term = array_pop($term_matches);
+      $term->field_panopoly_news_demo_content['und'][0]['value'] = TRUE;
+      taxonomy_term_save($term);
+      $term_ids[] = $term->tid;
+    }
+   	dpm($defaultcontent_nodes); 
+    foreach($defaultcontent_nodes as $node){
+      //Generate author user
+      devel_create_users(1, FALSE, 31556926, array($author_role->rid));
+
+      //Grab this user and assign them to the node
+      $newest_user_uid = panopoly_news_demo_get_latest_uid();
+      $account = user_load($newest_user_uid);
+      $account->field_panopoly_news_demo_content['und'][0]['value'] = TRUE;
+      $node->uid = $newest_user_uid;
+      user_save($account);
+
+      //Assign random terms to the nodes
+      $random_terms = panopoly_news_demo_get_random_terms($term_ids);
+      foreach($random_terms as $tid){
+        $node->field_panopoly_news_tags['und'][] = array('tid' => $term); 
+      }
+      dsm($node);
+      node_save($node); 
+    }
+  } 		
+}
 
 /**
  * Given an array of tids, return an array of random length
@@ -53,9 +97,21 @@ function panopoly_news_demo_disable_demo($redirect_path){
 function panopoly_news_demo_get_random_terms($term_ids){
 	$size = count($term_ids);
 	$number_returned_tids = rand(1, $size);
-	$random_tids = array_rand($term_ids, $number_returned_tids);
+	$random_tids = array_random_assoc($term_ids, $number_returned_tids);
 	return $random_tids;
 }
+
+function array_random_assoc($arr, $num = 1) {
+    $keys = array_keys($arr);
+    shuffle($keys);
+
+    $r = array();
+    for ($i = 0; $i < $num; $i++) {
+        $r[$keys[$i]] = $arr[$keys[$i]];
+    }
+    return $r;
+}
+
 
 /**
  * Get all (node) defaultcontent in $feature_name.
@@ -70,13 +126,18 @@ function panopoly_news_demo_get_defaultcontent($feature_name){
 	  $components = $content_defaults_function();
 	  usort($components, 'defaultcontent_import_sort');
 
-	  //Delete all the defaultcontent
+	  //Load all the defaultcontent
 	  if (!empty($components)) {
 	    foreach ($components as $component) {
 	      if ($nid = defaultcontent_get_default($component->machine_name)) {
 	        $node = node_load($nid);
 	        $defaultcontent_nodes[] = $node;
-	      }
+	      }else{
+          defaultcontent_import_node($component);
+          $nid = defaultcontent_get_default($component->machine_name);
+	        $node = node_load($nid);
+	        $defaultcontent_nodes[] = $node;
+        }
 	    }
 	  }
 	  return $defaultcontent_nodes;
@@ -89,12 +150,25 @@ function panopoly_news_demo_get_defaultcontent($feature_name){
  * @return [type] [description]
  */
 function panopoly_news_demo_get_demo_content($entity_type){
-	$query = new EntityFieldQuery();
-	$result = $query->entityCondition('entity_type', $entity_type)
-	->fieldCondition('field_panopoly_news_demo_content', 'value', NULL, 'IS NOT NULL')
-	->execute();
+	$field_info = field_info_field('field_panopoly_news_demo_content');
+	if(!empty($field_info['bundles'])){
+		$query = new EntityFieldQuery();
+		$result = $query->entityCondition('entity_type', $entity_type)
+		->fieldCondition('field_panopoly_news_demo_content', 'value', 1, '=')
+		->execute();
 
-	return $result;
+		return $result;
+	}else{
+		return FALSE;
+	}
+}
+
+function panopoly_news_demo_get_latest_uid(){
+	$result = db_query("select * from {users} order by uid desc limit 1");
+	foreach($result as $row){
+		$uid = $row->uid;
+	}
+	return $uid;
 }
 
 /**
@@ -104,10 +178,11 @@ function panopoly_news_demo_get_demo_content($entity_type){
  * @return [type]              [description]
  */
 function panopoly_news_demo_delete_demo_content($entity_type){
-	$eid_results = panopoly_news_demo_get_demo_content($entity_type);
-	$eids = array_keys($eid_results[$entity_type]);
-	foreach($eids as $eid){
-		entity_delete($entity_type, $eid);	
+	if($eid_results = panopoly_news_demo_get_demo_content($entity_type)){
+		$eids = array_keys($eid_results[$entity_type]);
+		foreach($eids as $eid){
+			entity_delete($entity_type, $eid);	
+		}
 	}
 }
 

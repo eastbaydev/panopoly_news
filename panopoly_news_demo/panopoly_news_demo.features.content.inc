@@ -42,19 +42,6 @@ function panopoly_news_demo_content_defaults() {
         ),
       ),
     ),
-    'field_panopoly_news_tags' => array(
-      'und' => array(
-        0 => array(
-          'tid' => '34',
-        ),
-        1 => array(
-          'tid' => '35',
-        ),
-        2 => array(
-          'tid' => '36',
-        ),
-      ),
-    ),
     'field_panopoly_news_featured' => array(
       'und' => array(
         0 => array(
@@ -131,19 +118,6 @@ function panopoly_news_demo_content_defaults() {
 <p>"My captain, you must have ere this perceived, respected sir"—said the imperturbable godly-looking Bunger, slightly bowing to Ahab—"is apt to be facetious at times; he spins us many clever things of that sort. But I may as well say—en passant, as the French remark—that I myself—that is to say, Jack Bunger, late of the reverend clergy—am a strict total abstinence man; I never drink—"</p>
  ',
           'safe_summary' => '  ',
-        ),
-      ),
-    ),
-    'field_panopoly_news_tags' => array(
-      'und' => array(
-        0 => array(
-          'tid' => '37',
-        ),
-        1 => array(
-          'tid' => '35',
-        ),
-        2 => array(
-          'tid' => '38',
         ),
       ),
     ),
@@ -229,19 +203,6 @@ function panopoly_news_demo_content_defaults() {
         ),
       ),
     ),
-    'field_panopoly_news_tags' => array(
-      'und' => array(
-        0 => array(
-          'tid' => '39',
-        ),
-        1 => array(
-          'tid' => '40',
-        ),
-        2 => array(
-          'tid' => '38',
-        ),
-      ),
-    ),
     'field_panopoly_news_featured' => array(
       'und' => array(
         0 => array(
@@ -300,19 +261,6 @@ function panopoly_news_demo_content_defaults() {
 <p>A little old man, with a grey military moustache and a filthy black frock coat, limped out and sat down beside the trap, removed his boot--his sock was blood-stained--shook out a pebble, and hobbled on again; and then a little girl of eight or nine, all alone, threw herself under the hedge close by my brother, weeping.</p>
 ',
           'safe_summary' => '',
-        ),
-      ),
-    ),
-    'field_panopoly_news_tags' => array(
-      'und' => array(
-        0 => array(
-          'tid' => '34',
-        ),
-        1 => array(
-          'tid' => '36',
-        ),
-        2 => array(
-          'tid' => '35',
         ),
       ),
     ),
@@ -379,22 +327,6 @@ function panopoly_news_demo_content_defaults() {
         ),
       ),
     ),
-    'field_panopoly_news_tags' => array(
-      'und' => array(
-        0 => array(
-          'tid' => '41',
-        ),
-        1 => array(
-          'tid' => '35',
-        ),
-        2 => array(
-          'tid' => '38',
-        ),
-        3 => array(
-          'tid' => '42',
-        ),
-      ),
-    ),
     'field_panopoly_news_featured' => array(
       'und' => array(
         0 => array(
@@ -454,22 +386,6 @@ function panopoly_news_demo_content_defaults() {
 <p>So they all lay upon the ground except the Scarecrow, and he stood up and stretched out his arms. And when the crows saw him they were frightened, as these birds always are by scarecrows, and did not dare to come any nearer. But the King Crow said:</p>
 ',
           'safe_summary' => '',
-        ),
-      ),
-    ),
-    'field_panopoly_news_tags' => array(
-      'und' => array(
-        0 => array(
-          'tid' => '43',
-        ),
-        1 => array(
-          'tid' => '42',
-        ),
-        2 => array(
-          'tid' => '38',
-        ),
-        3 => array(
-          'tid' => '40',
         ),
       ),
     ),

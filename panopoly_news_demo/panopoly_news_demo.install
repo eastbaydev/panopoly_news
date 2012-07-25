@@ -7,10 +7,11 @@
  * Implements hook_install()
  * 
  * @return [type] [description]
- */
+ *
 function panopoly_news_demo_install(){
 
   if($author_role = user_role_load_by_name('panopoly news author')){
+    module_load_include('inc', 'devel_generate');
 
     $defaultcontent_nodes = panopoly_news_demo_get_defaultcontent('panopoly_news_demo');
 
@@ -20,22 +21,23 @@ function panopoly_news_demo_install(){
     $vocab = taxonomy_vocabulary_load($vid); 
 
     //Generate some terms
-    $terms = devel_generate_term(10, array($vocab));
+    $terms = devel_generate_terms(10, array($vid => $vocab), 10);
     $term_ids = array();
     foreach($terms as $term_name){
-      $term_matches = taxonomy_get_term_by_name($term_name, $vocab->name);
-      $term = $term_matches[0];
+      $term_matches = taxonomy_get_term_by_name($term_name, $vocab->machine_name);
+      $term = array_pop($term_matches);
       $term->field_panopoly_news_demo_content['und'][0] = TRUE;
       taxonomy_term_save($term);
       $term_ids[] = $term->tid;
     }
     
-    foreach($nodes as $node){
+    foreach($defaultcontent_nodes as $node){
       //Generate author user
-      devel_create_users(1, FALSE, 31556926, $author_role->rid);
+      devel_create_users(10, FALSE, 31556926, $author_role->rid);
 
       //Grab this user and assign them to the node
       $newest_user_uid = panopoly_news_demo_get_latest_uid();
+      $user = user_load($newest_user_uid);
       $user->field_panopoly_news_demo_content['und'][0] = TRUE;
       $node->uid = $newest_user_uid;
       user_save($user);
