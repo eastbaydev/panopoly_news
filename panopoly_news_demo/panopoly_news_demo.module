@@ -90,8 +90,8 @@ function panopoly_news_demo_get_defaultcontent($feature_name){
  */
 function panopoly_news_demo_get_demo_content($entity_type){
 	$query = new EntityFieldQuery();
-	$result = $user_query->entityCondition('entity_type', $entity_type)
-	->fieldCondition('field_panopoly_news_demo_uuid', 'value', NULL, 'IS NOT NULL')
+	$result = $query->entityCondition('entity_type', $entity_type)
+	->fieldCondition('field_panopoly_news_demo_content', 'value', NULL, 'IS NOT NULL')
 	->execute();
 
 	return $result;
@@ -121,13 +121,13 @@ function panopoly_news_demo_export_demo_content() {
 	//Find all the users with an exportable uuid
 	$user_query = new EntityFieldQuery();
 	$user_result = $user_query->entityCondition('entity_type', 'user')
-	->fieldCondition('field_panopoly_news_demo_uuid', 'value', NULL, 'IS NOT NULL')
+	->fieldCondition('field_panopoly_news_demo_content', 'value', NULL, 'IS NOT NULL')
 	->execute();
 
 	//Find all the taxonomy_terms with an exportable uuid
 	$term_query = new EntityFieldQuery();
 	$term_result = $term_query->entityCondition('entity_type', 'taxonomy_term')
-	->fieldCondition('field_panopoly_news_demo_uuid', 'value', NULL, 'IS NOT NULL')
+	->fieldCondition('field_panopoly_news_demo_content', 'value', NULL, 'IS NOT NULL')
 	->execute();
 
 

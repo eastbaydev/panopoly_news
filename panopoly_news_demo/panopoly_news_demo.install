@@ -57,7 +57,7 @@ function panopoly_news_demo_install(){
  * 
  */
 function panopoly_news_demo_disable(){
-  //Remove any users or terms with the field_panopoly_news_demo_status
+  //Remove any users or terms with the field_panopoly_news_demo_content
   panopoly_news_demo_delete_demo_content('user');
   panopoly_news_demo_delete_demo_content('taxonomy_term');
 }

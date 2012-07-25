@@ -75,7 +75,7 @@ function panopoly_news_demo_content_defaults() {
           'filesize' => '77480',
           'status' => '1',
           'type' => 'image',
-          'uuid' => 'be6efdfb-a8b9-9724-f93a-1231f5e07bae',
+          'uuid' => '68a22779-4de9-7ab4-890f-2cac19f95b41',
           'image_dimensions' => array(
             'width' => '650',
             'height' => '449',
@@ -167,7 +167,7 @@ function panopoly_news_demo_content_defaults() {
           'filesize' => '49912',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '85410547-5f47-6e64-a5fa-0edb40796aaf',
+          'uuid' => '37b0c047-44a0-c974-5149-f925f6961d24',
           'image_dimensions' => array(
             'width' => '484',
             'height' => '500',
@@ -262,7 +262,7 @@ function panopoly_news_demo_content_defaults() {
           'filesize' => '85445',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '311d8fa9-f8c7-b6c4-313b-6954dac25931',
+          'uuid' => '4286de18-fada-39f4-5901-e8949427648a',
           'image_dimensions' => array(
             'width' => '656',
             'height' => '500',
@@ -336,7 +336,7 @@ function panopoly_news_demo_content_defaults() {
           'filesize' => '36484',
           'status' => '1',
           'type' => 'image',
-          'uuid' => 'a46be6b3-a7f1-9514-1562-59c812e42941',
+          'uuid' => 'e912ab64-e526-9414-f53a-f7182d765a8c',
           'image_dimensions' => array(
             'width' => '432',
             'height' => '505',
@@ -415,7 +415,7 @@ function panopoly_news_demo_content_defaults() {
           'filesize' => '34821',
           'status' => '1',
           'type' => 'image',
-          'uuid' => 'b46552db-e3df-8394-1554-21c4c369fd2f',
+          'uuid' => 'f6c297e1-be31-04e4-5d77-d9a6adaee58a',
           'image_dimensions' => array(
             'width' => '514',
             'height' => '610',
@@ -493,7 +493,7 @@ function panopoly_news_demo_content_defaults() {
           'filesize' => '45107',
           'status' => '1',
           'type' => 'image',
-          'uuid' => '9ff03d10-6e2e-03e4-9d87-413154774f43',
+          'uuid' => '1ea86e90-c5f8-a654-b584-a8735522a1eb',
           'image_dimensions' => array(
             'width' => '630',
             'height' => '446',
