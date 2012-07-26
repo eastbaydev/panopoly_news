@@ -1,0 +1,9 @@
+#content h2.views-field-title{
+	font-size: 2em;		
+}
+
+#content .views-field-field-panopoly-news-image img{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
