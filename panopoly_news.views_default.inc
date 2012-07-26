@@ -805,7 +805,9 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
@@ -1046,6 +1048,16 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['title_override'] = 0;
   $handler->display->display_options['allow']['exposed_form'] = 0;
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
+  $handler->display->display_options['argument_input'] = array(
+    'field_panopoly_news_tags_tid' => array(
+      'type' => 'user',
+      'context' => 'entity:fieldable_panels_pane.vuuid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Tags (field_panopoly_news_tags)',
+    ),
+  );
 
   /* Display: Main Content Grid */
   $handler = $view->new_display('panel_pane', 'Main Content Grid', 'main_content_grid');
@@ -1076,6 +1088,16 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['title_override'] = 0;
   $handler->display->display_options['allow']['exposed_form'] = 0;
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
+  $handler->display->display_options['argument_input'] = array(
+    'field_panopoly_news_tags_tid' => array(
+      'type' => 'user',
+      'context' => 'entity:fieldable_panels_pane.vuuid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Tags (field_panopoly_news_tags)',
+    ),
+  );
 
   /* Display: Main Content List */
   $handler = $view->new_display('panel_pane', 'Main Content List', 'main_content_list');
