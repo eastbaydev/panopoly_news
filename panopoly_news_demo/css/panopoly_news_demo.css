@@ -1,9 +1,59 @@
-#content h2.views-field-title{
-	font-size: 2em;		
+.background-matte-tag {
+  margin:.2em .4em;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  background-color:#bbb;
+  color:white;
+  padding:.1em .6em;
 }
-
-#content .views-field-field-panopoly-news-image img{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+.background-matte-tag-hover { background-color:#939598; }
+#content h2.views-field-title {
+  font-size:2em;
+  margin-top:0em;
 }
+#content .views-field-created { margin-top:1em; }
+#content .views-field-created span {
+  font-size:1.2em;
+  background-color:#bbb;
+  color:white;
+  padding:.4em;
+}
+#content .views-field-field-panopoly-news-image img {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+#content .views-field-field-panopoly-news-tags ul { list-style:none; }
+#content .views-field-field-panopoly-news-tags ul li {
+  float:left;
+  margin:.2em .4em;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  background-color:#bbb;
+  color:white;
+  padding:.1em .6em;
+}
+#content .views-field-field-panopoly-news-tags ul li a { color:white; }
+#content .views-field-field-panopoly-news-tags ul li a:hover { text-decoration:none; }
+#content .views-field-field-panopoly-news-tags ul li:hover { background-color:#939598; }
+#content .view-display-id-side_list_expanded h3 {
+  background-color:#bbb;
+  color:white;
+  padding:.4em;
+}
+#content .view-display-id-side_list_compressed ul { list-style:none; }
+#content .view-display-id-side_list_compressed ul li {
+  float:left;
+  margin:.2em .4em;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  background-color:#bbb;
+  color:white;
+  padding:.1em .6em;
+}
+#content .view-display-id-side_list_compressed ul li a { color:white; }
+#content .view-display-id-side_list_compressed ul li a:hover { text-decoration:none; }
+#content .view-display-id-side_list_compressed ul li:hover { background-color:#939598; }
