@@ -18,9 +18,9 @@ function panopoly_news_panelizer_defaults() {
   $panelizer->panelizer_type = 'node';
   $panelizer->panelizer_key = 'panopoly_news_article';
   $panelizer->no_blocks = FALSE;
-  $panelizer->css_id = '';
+  $panelizer->css_id = 'panopoly-news';
   $panelizer->css = '';
-  $panelizer->pipeline = 'standard';
+  $panelizer->pipeline = 'ipe';
   $panelizer->contexts = array();
   $panelizer->relationships = array(
     0 => array(
@@ -85,41 +85,6 @@ function panopoly_news_panelizer_defaults() {
     $pane->pid = 'new-2';
     $pane->panel = 'footer';
     $pane->type = 'views_panes';
-    $pane->subtype = 'panopoly_news_article_by_topic-main_content_grid';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'use_pager' => 0,
-      'pager_id' => '',
-      'items_per_page' => '3',
-      'arguments' => array(
-        'field_panopoly_news_tags_tid' => '%node:field_panopoly_news_tags',
-      ),
-      'fields_override' => array(
-        'created' => 0,
-        'title' => 1,
-        'field_panopoly_news_image' => 1,
-        'name' => 1,
-        'body' => 1,
-        'field_panopoly_news_tags' => 0,
-      ),
-      'view_mode' => NULL,
-      'widget_title' => '',
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $display->content['new-2'] = $pane;
-    $display->panels['footer'][0] = 'new-2';
-    $pane = new stdClass();
-    $pane->pid = 'new-3';
-    $pane->panel = 'footer';
-    $pane->type = 'views_panes';
     $pane->subtype = 'panopoly_news_featured_articles-main_content_grid';
     $pane->shown = TRUE;
     $pane->access = array();
@@ -145,15 +110,15 @@ function panopoly_news_panelizer_defaults() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-3'] = $pane;
-    $display->panels['footer'][1] = 'new-3';
+    $display->content['new-2'] = $pane;
+    $display->panels['footer'][0] = 'new-2';
     $pane = new stdClass();
-    $pane->pid = 'new-4';
+    $pane->pid = 'new-3';
     $pane->panel = 'sidebar';
     $pane->type = 'views_panes';
-    $pane->subtype = 'news_articles_by_author-panopoly_news_author_about';
+    $pane->subtype = 'panopoly_news_author-author_about';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -178,18 +143,22 @@ function panopoly_news_panelizer_defaults() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-4'] = $pane;
-    $display->panels['sidebar'][0] = 'new-4';
+    $display->content['new-3'] = $pane;
+    $display->panels['sidebar'][0] = 'new-3';
     $pane = new stdClass();
-    $pane->pid = 'new-5';
+    $pane->pid = 'new-4';
     $pane->panel = 'sidebar';
     $pane->type = 'views_panes';
-    $pane->subtype = 'news_articles_by_author-panopoly_news_author_more_by';
+    $pane->subtype = 'panopoly_news_author-author_more_by';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
+      'context' => array(
+        0 => 'relationship_entity_from_schema:uid-node-user_1',
+        1 => 'panelizer',
+      ),
       'view_mode' => NULL,
-      'widget_title' => 'More By',
+      'widget_title' => 'More By This Author',
       'items_per_page' => NULL,
     );
     $pane->cache = array();
@@ -200,9 +169,9 @@ function panopoly_news_panelizer_defaults() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-5'] = $pane;
-    $display->panels['sidebar'][1] = 'new-5';
-  $display->hide_title = PANELS_TITLE_FIXED;
+    $display->content['new-4'] = $pane;
+    $display->panels['sidebar'][1] = 'new-4';
+  $display->hide_title = PANELS_TITLE_NONE;
   $display->title_pane = '0';
   $panelizer->display = $display;
   $export['node:panopoly_news_article:default'] = $panelizer;
