@@ -12,6 +12,7 @@ dependencies[] = list
 dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = panelizer
+dependencies[] = panopoly_news_demo
 dependencies[] = php
 dependencies[] = strongarm
 dependencies[] = taxonomy
