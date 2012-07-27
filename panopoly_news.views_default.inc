@@ -23,7 +23,6 @@ function panopoly_news_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'News Articles';
-  $handler->display->display_options['css_class'] = 'author-more-by';
   $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['link_display'] = 'custom_url';
   $handler->display->display_options['access']['type'] = 'none';
@@ -216,8 +215,6 @@ function panopoly_news_views_default_views() {
   $handler = $view->new_display('panel_pane', 'About the Author', 'panopoly_news_author_about');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'About the Author';
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'author-about';
   $handler->display->display_options['display_description'] = 'Basic info about the News Article author';
   $handler->display->display_options['defaults']['query'] = FALSE;
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -322,8 +319,6 @@ function panopoly_news_views_default_views() {
 
   /* Display: Main Content Grid */
   $handler = $view->new_display('panel_pane', 'Main Content Grid', 'panopoly_news_author_main_content_grid');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-grid';
   $handler->display->display_options['display_description'] = 'News Articles in grid format for a given author';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
@@ -377,8 +372,6 @@ function panopoly_news_views_default_views() {
 
   /* Display: Main Content List */
   $handler = $view->new_display('panel_pane', 'Main Content List', 'panopoly_news_author_main_content_list');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-list';
   $handler->display->display_options['display_description'] = 'News Articles in list format for a given author';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -462,6 +455,7 @@ function panopoly_news_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Archive';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -722,9 +716,7 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Side List Expanded */
-  $handler = $view->new_display('panel_pane', 'Side List Expanded', 'panopoly_news_article_archive_side_list_expanded');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'side-list-expanded';
+  $handler = $view->new_display('panel_pane', 'Side List Expanded', 'side_list_expanded');
   $handler->display->display_options['display_description'] = 'Month name with individual article titles below.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -735,6 +727,7 @@ function panopoly_news_views_default_views() {
       'rendered_strip' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['row_class'] = 'date-header';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -753,9 +746,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Main Content Grid */
-  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'panopoly_news_article_archive_main_content_grid');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-grid';
+  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'main_content_grid');
   $handler->display->display_options['display_description'] = 'Archive view intended for the main content area of a page with articles presented as teasers in a grid.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
@@ -794,9 +785,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Main Content List */
-  $handler = $view->new_display('panel_pane', 'Main Content List', 'panopoly_news_article_archive_main_content_list');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-list';
+  $handler = $view->new_display('panel_pane', 'Main Content List', 'main_content_list');
   $handler->display->display_options['display_description'] = 'Archive view intended for the main content area of a page with articles presented as teasers in a list.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -825,9 +814,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Side List Compressed */
-  $handler = $view->new_display('panel_pane', 'Side List Compressed', 'panopoly_news_article_archive_side_list_compressed');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'side-list-compressed';
+  $handler = $view->new_display('panel_pane', 'Side List Compressed', 'side_list_compressed');
   $handler->display->display_options['display_description'] = 'Archive view, sorted by month with only titles shown.';
   $export['panopoly_news_article_archive'] = $view;
 
@@ -1067,9 +1054,7 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Side List Expanded */
-  $handler = $view->new_display('panel_pane', 'Side List Expanded', 'panopoly_news_articles_by_topic_side_list_expanded');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'side-list-expanded';
+  $handler = $view->new_display('panel_pane', 'Side List Expanded', 'side_list_expanded');
   $handler->display->display_options['display_description'] = 'Month name with individual article titles below.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -1107,9 +1092,7 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Main Content Grid */
-  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'panopoly_news_article_by_topic_main_content_grid');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-grid';
+  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'main_content_grid');
   $handler->display->display_options['display_description'] = 'Archive view intended for the main content area of a page with articles presented as teasers in a grid.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
@@ -1149,9 +1132,7 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Main Content List */
-  $handler = $view->new_display('panel_pane', 'Main Content List', 'panopoly_news_article_by_topic_main_content_list');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-list';
+  $handler = $view->new_display('panel_pane', 'Main Content List', 'main_content_list');
   $handler->display->display_options['display_description'] = 'Archive view intended for the main content area of a page with articles presented as teasers in a list.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -1189,11 +1170,9 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Side List Compressed */
-  $handler = $view->new_display('panel_pane', 'Side List Compressed', 'panopoly_news_article_by_topic_side_list_compressed');
+  $handler = $view->new_display('panel_pane', 'Side List Compressed', 'side_list_compressed');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Most Popular Topics';
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'side-list-compressed';
   $handler->display->display_options['display_description'] = 'List of topics, along with the number of times they appear.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
@@ -1444,16 +1423,16 @@ function panopoly_news_views_default_views() {
     'panopoly_news_article' => 'panopoly_news_article',
   );
 
-  /* Display: All Articles */
-  $handler = $view->new_display('feed', 'All Articles', 'panopoly_news_article_feed_all_articles');
+  /* Display: News Article Feed */
+  $handler = $view->new_display('feed', 'News Article Feed', 'article_feed');
   $handler->display->display_options['display_description'] = 'RSS feed of all articles.';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
   $handler->display->display_options['row_plugin'] = 'node_rss';
   $handler->display->display_options['path'] = 'news/feed';
 
-  /* Display: Featured Articles */
-  $handler = $view->new_display('feed', 'Featured Articles', 'panopoly_news_article_feed_featured_articles');
+  /* Display: Featured News Article Feed */
+  $handler = $view->new_display('feed', 'Featured News Article Feed', 'featured_article_feed');
   $handler->display->display_options['display_description'] = 'RSS feed of the featured articles.';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['style_plugin'] = 'rss';
@@ -1482,8 +1461,8 @@ function panopoly_news_views_default_views() {
   );
   $handler->display->display_options['path'] = 'news/featured-feed';
 
-  /* Display: Topics */
-  $handler = $view->new_display('feed', 'Topics', 'panopoly_news_article_feed_topics');
+  /* Display: News Article Topic Feed */
+  $handler = $view->new_display('feed', 'News Article Topic Feed', 'article_topic_feed');
   $handler->display->display_options['display_description'] = 'RSS feed for articles tagged with a given topic, provided through a contextual filter.';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
@@ -1527,7 +1506,6 @@ function panopoly_news_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Featured News Articles';
-  $handler->display->display_options['css_class'] = 'main_content_grid';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -1733,9 +1711,7 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Main Content List */
-  $handler = $view->new_display('panel_pane', 'Main Content List', 'panopoly_news_featured_articles_main_content_list');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main_content_list';
+  $handler = $view->new_display('panel_pane', 'Main Content List', 'main_content_list');
   $handler->display->display_options['display_description'] = 'Display of featured articles intended for display in a main content area.';
   $handler->display->display_options['allow']['use_pager'] = 0;
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
@@ -1748,9 +1724,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Side Content List */
-  $handler = $view->new_display('panel_pane', 'Side Content List', 'panopoly_news_featured_articles_side_content_area');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'side_content_list';
+  $handler = $view->new_display('panel_pane', 'Side Content List', 'side_content_area');
   $handler->display->display_options['display_description'] = 'Display of featured articles intended for display in a side content area.';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -1769,9 +1743,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Main Content Grid */
-  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'panopoly_news_featured_articles_main_content_grid');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main_content_grid';
+  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'main_content_grid');
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
   $handler->display->display_options['style_options']['columns'] = '3';
@@ -1791,11 +1763,9 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Main Content Top Story */
-  $handler = $view->new_display('panel_pane', 'Main Content Top Story', 'panopoly_news_featured_articles_top_story');
+  $handler = $view->new_display('panel_pane', 'Main Content Top Story', 'top_story');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Top Story';
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'top_story';
   $handler->display->display_options['display_description'] = 'The most recent featured news article';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -2168,9 +2138,7 @@ function panopoly_news_views_default_views() {
   );
 
   /* Display: Main Content List */
-  $handler = $view->new_display('panel_pane', 'Main Content List', 'panopoly_news_recent_articles_main_content_list');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-list';
+  $handler = $view->new_display('panel_pane', 'Main Content List', 'main_content_list');
   $handler->display->display_options['display_description'] = 'Display of recent articles in list format, intended for display in a main content area.';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
@@ -2183,9 +2151,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Side Content List */
-  $handler = $view->new_display('panel_pane', 'Side Content List', 'panopoly_news_recent_articles_side_content_list');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'side-content-list';
+  $handler = $view->new_display('panel_pane', 'Side Content List', 'side_content_list');
   $handler->display->display_options['display_description'] = 'List display of recent articles intended for display in a side content area.';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -2359,9 +2325,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Main Content Grid */
-  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'panopoly_news_recent_articles_main_content_grid');
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'main-content-grid';
+  $handler = $view->new_display('panel_pane', 'Main Content Grid', 'main_content_grid');
   $handler->display->display_options['display_description'] = 'Grid display of recent articles intended for a main content area.';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'grid';
