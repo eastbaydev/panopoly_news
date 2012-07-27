@@ -117,23 +117,15 @@ function panopoly_news_panelizer_defaults() {
     $pane = new stdClass();
     $pane->pid = 'new-3';
     $pane->panel = 'sidebar';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'panopoly_news_author-author_about';
+    $pane->type = 'token';
+    $pane->subtype = 'user:picture';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'use_pager' => 0,
-      'pager_id' => '',
-      'items_per_page' => '1',
-      'fields_override' => array(
-        'name' => 1,
-        'picture' => 1,
-      ),
-      'context' => array(
-        0 => 'relationship_entity_from_schema:uid-node-user_1',
-      ),
-      'view_mode' => NULL,
-      'widget_title' => 'About the Author',
+      'sanitize' => 1,
+      'context' => 'relationship_entity_from_schema:uid-node-user_1',
+      'override_title' => 1,
+      'override_title_text' => 'Posted by %user:name',
     );
     $pane->cache = array();
     $pane->style = array(
