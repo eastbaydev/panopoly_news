@@ -238,13 +238,13 @@ function panopoly_news_default_page_manager_pages() {
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'use_pager' => 1,
+      'use_pager' => 0,
       'pager_id' => '',
       'items_per_page' => '3',
       'fields_override' => array(
         'created' => 0,
-        'field_panopoly_news_image' => 1,
         'title' => 1,
+        'field_panopoly_news_image' => 1,
         'name' => 1,
         'body' => 1,
         'field_panopoly_news_tags' => 0,
@@ -300,7 +300,7 @@ function panopoly_news_default_page_manager_pages() {
     $pane->pid = 'new-6';
     $pane->panel = 'contentheader';
     $pane->type = 'views_panes';
-    $pane->subtype = 'panopoly_news_featured_articles-panel_pane_1';
+    $pane->subtype = 'panopoly_news_featured_articles-top_story';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(

@@ -38,20 +38,13 @@
 		font-size: @header;
 		margin-top: 0em;	
 	}
-	.views-field-created{
-		margin-top: 1em;
-		span{
-			.background-matte;
-			font-size: @sub-header;
-		}
-	}
 	.views-field-field-panopoly-news-image img{
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 	}
 
-	.views-field-field-panopoly-news-tags{
+	.views-field-field-panopoly-news-tags, .field-name-field-panopoly-news-tags{
 		ul{
 			list-style: none;
 			li{
@@ -69,12 +62,20 @@
 			}
 		}	
 	}
+	.view-display-id-top_story{
+		.views-field-created{
+			margin-top: 1em;
+			span{
+				.background-matte;
+				font-size: @sub-header;
+			}
+		}
+	}
 	.view-display-id-side_list_expanded{
 		h3{
 			.background-matte;
 		}	
 	}
-
 	.view-display-id-side_list_compressed{
 		ul{
 			list-style: none;

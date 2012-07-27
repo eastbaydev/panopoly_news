@@ -35,6 +35,31 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_wrapper_type'] = 'h3';
+  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Featured Image */
   $handler->display->display_options['fields']['field_panopoly_news_image']['id'] = 'field_panopoly_news_image';
   $handler->display->display_options['fields']['field_panopoly_news_image']['table'] = 'field_data_field_panopoly_news_image';
@@ -64,31 +89,6 @@ function panopoly_news_views_default_views() {
     'image_link' => 'content',
   );
   $handler->display->display_options['fields']['field_panopoly_news_image']['field_api_classes'] = 0;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['more_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_wrapper_type'] = 'h3';
-  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'node';
@@ -174,16 +174,28 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['arguments']['uid']['table'] = 'node';
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
   $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['uid']['title_enable'] = 1;
-  $handler->display->display_options['arguments']['uid']['title'] = 'More by %1';
   $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'user';
   $handler->display->display_options['arguments']['uid']['default_argument_options']['user'] = TRUE;
   $handler->display->display_options['arguments']['uid']['default_argument_skip_url'] = 0;
   $handler->display->display_options['arguments']['uid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['uid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['uid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['uid']['validate']['type'] = 'user';
+  $handler->display->display_options['arguments']['uid']['validate_options']['restrict_roles'] = 0;
   $handler->display->display_options['arguments']['uid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['uid']['not'] = 0;
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['nid']['not'] = 1;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -399,7 +411,7 @@ function panopoly_news_views_default_views() {
   /* Display: More by this Author */
   $handler = $view->new_display('panel_pane', 'More by this Author', 'panopoly_news_author_more_by');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'More By';
+  $handler->display->display_options['title'] = 'More By This Author';
   $handler->display->display_options['display_description'] = 'Display more content by this author';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
@@ -410,6 +422,24 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
+  $handler->display->display_options['argument_input'] = array(
+    'uid' => array(
+      'type' => 'context',
+      'context' => 'entity:user.uid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Author uid',
+    ),
+    'nid' => array(
+      'type' => 'context',
+      'context' => 'entity:node.nid',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Nid',
+    ),
+  );
   $export['news_articles_by_author'] = $view;
 
   $view = new view;
@@ -697,6 +727,7 @@ function panopoly_news_views_default_views() {
       'rendered_strip' => 0,
     ),
   );
+  $handler->display->display_options['style_options']['row_class'] = 'date-header';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -800,7 +831,6 @@ function panopoly_news_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Articles by Topic';
-  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -1628,6 +1658,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['field_panopoly_news_tags']['id'] = 'field_panopoly_news_tags';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['table'] = 'field_data_field_panopoly_news_tags';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['field'] = 'field_panopoly_news_tags';
+  $handler->display->display_options['fields']['field_panopoly_news_tags']['label'] = '';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['absolute'] = 0;
@@ -1641,16 +1672,16 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_panopoly_news_tags']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_panopoly_news_tags']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_panopoly_news_tags']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_panopoly_news_tags']['multi_type'] = 'ul';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['field_api_classes'] = 0;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
@@ -1732,7 +1763,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['allow']['fields_override'] = 'fields_override';
 
   /* Display: Main Content Top Story */
-  $handler = $view->new_display('panel_pane', 'Main Content Top Story', 'panel_pane_1');
+  $handler = $view->new_display('panel_pane', 'Main Content Top Story', 'top_story');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Top Story';
   $handler->display->display_options['display_description'] = 'The most recent featured news article';
@@ -1746,7 +1777,6 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['created']['table'] = 'node';
   $handler->display->display_options['fields']['created']['field'] = 'created';
   $handler->display->display_options['fields']['created']['label'] = '';
-  $handler->display->display_options['fields']['created']['exclude'] = TRUE;
   $handler->display->display_options['fields']['created']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['created']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['created']['alter']['absolute'] = 0;
@@ -1826,7 +1856,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['name']['field'] = 'name';
   $handler->display->display_options['fields']['name']['relationship'] = 'uid';
   $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['alter_text'] = 1;
+  $handler->display->display_options['fields']['name']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['name']['alter']['text'] = 'by [name] on [created]';
   $handler->display->display_options['fields']['name']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['name']['alter']['absolute'] = 0;
@@ -1880,6 +1910,7 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['field_panopoly_news_tags']['id'] = 'field_panopoly_news_tags';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['table'] = 'field_data_field_panopoly_news_tags';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['field'] = 'field_panopoly_news_tags';
+  $handler->display->display_options['fields']['field_panopoly_news_tags']['label'] = '';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['alter_text'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['make_link'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['absolute'] = 0;
@@ -1893,16 +1924,16 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['strip_tags'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['trim'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['field_panopoly_news_tags']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_panopoly_news_tags']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['element_default_classes'] = 1;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['hide_empty'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['hide_alter_empty'] = 1;
-  $handler->display->display_options['fields']['field_panopoly_news_tags']['type'] = 'taxonomy_term_reference_plain';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['group_rows'] = 1;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_first_last'] = 0;
+  $handler->display->display_options['fields']['field_panopoly_news_tags']['multi_type'] = 'ul';
   $handler->display->display_options['fields']['field_panopoly_news_tags']['field_api_classes'] = 0;
   $export['panopoly_news_featured_articles'] = $view;
 

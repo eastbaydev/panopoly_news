@@ -50,7 +50,7 @@ function panopoly_news_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => 0,
+          'weight' => '0',
         ),
         'featured' => array(
           'label' => 'above',
@@ -122,11 +122,10 @@ function panopoly_news_field_default_fields() {
       'description' => 'Whether or not this article will appear in "Featured Content" areas, typically prominently displayed.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'list',
+          'label' => 'hidden',
           'settings' => array(),
-          'type' => 'list_default',
-          'weight' => 3,
+          'type' => 'hidden',
+          'weight' => '3',
         ),
         'featured' => array(
           'label' => 'above',
@@ -194,14 +193,10 @@ function panopoly_news_field_default_fields() {
       'description' => 'This image will represent the article when it is presented in summary format (ex: article title, teaser text, and this image) throughout the site. ',
       'display' => array(
         'default' => array(
-          'label' => 'above',
-          'module' => 'image',
-          'settings' => array(
-            'image_link' => '',
-            'image_style' => '',
-          ),
-          'type' => 'image',
-          'weight' => 4,
+          'label' => 'hidden',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
         ),
         'featured' => array(
           'label' => 'above',
@@ -285,11 +280,11 @@ function panopoly_news_field_default_fields() {
       'description' => 'Tags to help associate groups of articles together and allow users to more easily find related content.',
       'display' => array(
         'default' => array(
-          'label' => 'above',
+          'label' => 'hidden',
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => 2,
+          'weight' => '2',
         ),
         'featured' => array(
           'label' => 'above',
