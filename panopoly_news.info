@@ -1,7 +1,7 @@
 name = Panopoly News
 description = Provides the structure and functionality for an article-based content site, ala a blog or news center.
 core = 7.x
-package = Panopoly
+package = Panopoly Apps
 php = 5.2.4
 version = 7.x-1.0-dev
 project = panopoly_news

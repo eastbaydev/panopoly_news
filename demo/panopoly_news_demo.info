@@ -1,7 +1,7 @@
 name = Panopoly News Demo
 description = Demo content for Panopoly News
 core = 7.x
-package = Panopoly
+package = Panopoly Demos
 php = 5.2.4
 version = 7.x-1.0-dev
 project = panopoly_news_demo
