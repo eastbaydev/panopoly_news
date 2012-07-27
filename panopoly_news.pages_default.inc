@@ -16,7 +16,10 @@ function panopoly_news_default_page_manager_pages() {
   $page->admin_title = 'More News Articles By This Author';
   $page->admin_description = 'Page presents basic information about the author and the articles they have written.';
   $page->path = 'news/%name';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array(
     'name' => array(
@@ -176,7 +179,10 @@ function panopoly_news_default_page_manager_pages() {
   $page->admin_title = 'News Home Page';
   $page->admin_description = 'The primary disambiguation page for all things news-related. Think of as the primary page of a blog or news section of your site.';
   $page->path = 'news';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array(
     'type' => 'normal',
     'title' => 'News',
