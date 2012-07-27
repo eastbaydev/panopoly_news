@@ -151,7 +151,21 @@ function panopoly_news_panelizer_defaults() {
       ),
       'view_mode' => NULL,
       'widget_title' => 'More By This Author',
-      'items_per_page' => NULL,
+      'items_per_page' => '10',
+      'more_link' => 1,
+      'fields_override' => array(
+        'title' => 1,
+        'field_panopoly_news_image' => 0,
+        'created' => 1,
+        'body' => 0,
+        'view_node' => 0,
+      ),
+      'exposed' => array(
+        'sort_by' => 'created',
+        'sort_order' => 'DESC',
+        'widget_title' => 'More By This Author',
+        'items_per_page' => '10',
+      ),
     );
     $pane->cache = array();
     $pane->style = array(

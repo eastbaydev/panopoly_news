@@ -13,7 +13,7 @@ function panopoly_news_default_page_manager_pages() {
   $page->api_version = 1;
   $page->name = 'panopoly_news_articles_author';
   $page->task = 'page';
-  $page->admin_title = 'More News Articles By This Author';
+  $page->admin_title = 'Articles By Author';
   $page->admin_description = 'Page presents basic information about the author and the articles they have written.';
   $page->path = 'news/%name';
   $page->access = array(
@@ -50,7 +50,15 @@ function panopoly_news_default_page_manager_pages() {
     'css_id' => '',
     'css' => '',
     'contexts' => array(),
-    'relationships' => array(),
+    'relationships' => array(
+      0 => array(
+        'identifier' => 'Node from User (on node.node_author)',
+        'keyword' => 'user',
+        'name' => 'entity_from_schema:uid-user-node',
+        'context' => 'argument_user_name_1',
+        'id' => 1,
+      ),
+    ),
   );
   $display = new panels_display();
   $display->layout = 'moscone_flipped';
@@ -72,24 +80,30 @@ function panopoly_news_default_page_manager_pages() {
     $pane->pid = 'new-1';
     $pane->panel = 'contentmain';
     $pane->type = 'views_panes';
-    $pane->subtype = 'news_articles_by_author-panopoly_news_author_main_content_grid';
+    $pane->subtype = 'panopoly_news_author-main_content_list';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'view_mode' => NULL,
-      'widget_title' => 'Articles By This Author',
-      'items_per_page' => '0',
+      'widget_title' => '',
+      'items_per_page' => '5',
       'context' => array(
         0 => 'argument_user_name_1',
       ),
       'use_pager' => 0,
       'pager_id' => '',
       'fields_override' => array(
-        'field_panopoly_news_image' => 1,
         'title' => 1,
+        'field_panopoly_news_image' => 1,
         'created' => 1,
         'body' => 1,
         'view_node' => 1,
+      ),
+      'exposed' => array(
+        'sort_by' => 'created',
+        'sort_order' => 'DESC',
+        'widget_title' => '',
+        'items_per_page' => '5',
       ),
     );
     $pane->cache = array();
@@ -137,23 +151,14 @@ function panopoly_news_default_page_manager_pages() {
     $pane = new stdClass();
     $pane->pid = 'new-3';
     $pane->panel = 'sidebar';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'news_articles_by_author-panopoly_news_author_about';
+    $pane->type = 'user_picture';
+    $pane->subtype = 'user_picture';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
-      'use_pager' => 0,
-      'pager_id' => '',
-      'items_per_page' => '1',
-      'fields_override' => array(
-        'name' => 1,
-        'picture' => 1,
-      ),
-      'view_mode' => NULL,
-      'widget_title' => 'About the Author',
-      'context' => array(
-        0 => 'argument_user_name_1',
-      ),
+      'context' => 'argument_user_name_1',
+      'override_title' => 1,
+      'override_title_text' => '',
     );
     $pane->cache = array();
     $pane->style = array(
@@ -165,8 +170,54 @@ function panopoly_news_default_page_manager_pages() {
     $pane->locks = array();
     $display->content['new-3'] = $pane;
     $display->panels['sidebar'][0] = 'new-3';
-  $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-3';
+    $pane = new stdClass();
+    $pane->pid = 'new-4';
+    $pane->panel = 'sidebar';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'panopoly_news_article_archive-side_list_compressed';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'view_mode' => NULL,
+      'widget_title' => '',
+      'items_per_page' => NULL,
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $display->content['new-4'] = $pane;
+    $display->panels['sidebar'][1] = 'new-4';
+    $pane = new stdClass();
+    $pane->pid = 'new-5';
+    $pane->panel = 'sidebar';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'panopoly_news_article_by_topic-side_list_compressed';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'use_pager' => 0,
+      'pager_id' => '',
+      'items_per_page' => '0',
+      'view_mode' => 'teaser',
+      'widget_title' => 'Most Popular Topics',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $display->content['new-5'] = $pane;
+    $display->panels['sidebar'][2] = 'new-5';
+  $display->hide_title = PANELS_TITLE_NONE;
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
   $pages['panopoly_news_articles_author'] = $page;
@@ -237,7 +288,7 @@ function panopoly_news_default_page_manager_pages() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-4';
+    $pane->pid = 'new-6';
     $pane->panel = 'contentcolumn1';
     $pane->type = 'views_panes';
     $pane->subtype = 'panopoly_news_article_by_topic-main_content_list';
@@ -267,10 +318,10 @@ function panopoly_news_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-4'] = $pane;
-    $display->panels['contentcolumn1'][0] = 'new-4';
+    $display->content['new-6'] = $pane;
+    $display->panels['contentcolumn1'][0] = 'new-6';
     $pane = new stdClass();
-    $pane->pid = 'new-5';
+    $pane->pid = 'new-7';
     $pane->panel = 'contentcolumn2';
     $pane->type = 'views_panes';
     $pane->subtype = 'panopoly_news_featured_articles-side_content_area';
@@ -300,10 +351,10 @@ function panopoly_news_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-5'] = $pane;
-    $display->panels['contentcolumn2'][0] = 'new-5';
+    $display->content['new-7'] = $pane;
+    $display->panels['contentcolumn2'][0] = 'new-7';
     $pane = new stdClass();
-    $pane->pid = 'new-6';
+    $pane->pid = 'new-8';
     $pane->panel = 'contentheader';
     $pane->type = 'views_panes';
     $pane->subtype = 'panopoly_news_featured_articles-top_story';
@@ -320,10 +371,10 @@ function panopoly_news_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-6'] = $pane;
-    $display->panels['contentheader'][0] = 'new-6';
+    $display->content['new-8'] = $pane;
+    $display->panels['contentheader'][0] = 'new-8';
     $pane = new stdClass();
-    $pane->pid = 'new-7';
+    $pane->pid = 'new-9';
     $pane->panel = 'sidebar';
     $pane->type = 'views_panes';
     $pane->subtype = 'panopoly_news_article_archive-side_list_expanded';
@@ -352,10 +403,10 @@ function panopoly_news_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $display->content['new-7'] = $pane;
-    $display->panels['sidebar'][0] = 'new-7';
+    $display->content['new-9'] = $pane;
+    $display->panels['sidebar'][0] = 'new-9';
     $pane = new stdClass();
-    $pane->pid = 'new-8';
+    $pane->pid = 'new-10';
     $pane->panel = 'sidebar';
     $pane->type = 'views_panes';
     $pane->subtype = 'panopoly_news_article_by_topic-side_list_compressed';
@@ -374,8 +425,8 @@ function panopoly_news_default_page_manager_pages() {
     $pane->extras = array();
     $pane->position = 1;
     $pane->locks = array();
-    $display->content['new-8'] = $pane;
-    $display->panels['sidebar'][1] = 'new-8';
+    $display->content['new-10'] = $pane;
+    $display->panels['sidebar'][1] = 'new-10';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
