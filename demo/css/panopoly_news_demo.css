@@ -26,7 +26,7 @@
 }
 #content .views-field-field-panopoly-news-tags ul { list-style:none; }
 #content .views-field-field-panopoly-news-tags ul li {
-  float:left;
+  display:inline;
   margin:.2em .4em;
   border-radius:5px;
   -webkit-border-radius:5px;
@@ -43,9 +43,13 @@
   color:white;
   padding:.4em;
 }
+#content .view-panopoly-news-author .views-row { 
+  clear:both; 
+  margin-bottom: 25px; 
+}
 #content .view-display-id-side_list_compressed ul { list-style:none; }
 #content .view-display-id-side_list_compressed ul li {
-  float:left;
+  display:inline;
   margin:.2em .4em;
   border-radius:5px;
   -webkit-border-radius:5px;
@@ -53,6 +57,11 @@
   background-color:#bbb;
   color:white;
   padding:.1em .6em;
+}
+#content .view-panopoly-news-author .views-field-field-panopoly-news-image img { 
+  float: left; 
+  padding-right: 15px;
+  padding-bottom: 15px; 
 }
 #content .view-display-id-side_list_compressed ul li a { color:white; }
 #content .view-display-id-side_list_compressed ul li a:hover { text-decoration:none; }
