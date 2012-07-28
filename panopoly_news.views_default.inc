@@ -639,6 +639,8 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
   $handler->display->display_options['allow']['offset'] = 0;
@@ -679,6 +681,8 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
   $handler->display->display_options['allow']['offset'] = 0;
@@ -717,6 +721,8 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
   $handler->display->display_options['allow']['offset'] = 0;
@@ -780,6 +786,8 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['arguments']['name']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['name']['add_table'] = 0;
   $handler->display->display_options['arguments']['name']['require_value'] = 0;
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
   $handler->display->display_options['allow']['offset'] = 0;
@@ -2094,6 +2102,8 @@ function panopoly_news_views_default_views() {
   /* Display: Main Content List */
   $handler = $view->new_display('panel_pane', 'Main Content List', 'main_content_list');
   $handler->display->display_options['display_description'] = 'Display of recent articles in list format, intended for display in a main content area.';
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
   $handler->display->display_options['allow']['offset'] = 0;
@@ -2268,6 +2278,8 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['delta_first_last'] = 0;
   $handler->display->display_options['fields']['field_panopoly_news_tags']['field_api_classes'] = 0;
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $handler->display->display_options['allow']['use_pager'] = 'use_pager';
   $handler->display->display_options['allow']['items_per_page'] = 'items_per_page';
   $handler->display->display_options['allow']['offset'] = 0;
@@ -2289,6 +2301,8 @@ function panopoly_news_views_default_views() {
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['pane_category']['name'] = 'Panopoly News';
+  $handler->display->display_options['pane_category']['weight'] = '0';
   $export['panopoly_news_recent_articles'] = $view;
 
   return $export;
